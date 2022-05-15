@@ -47,6 +47,23 @@ technique results.
 ### Summary: 
 Random Forest has the highest precision; CatBoost has the highest recall; LightGBM runs fatest; XGBoost and CatBoost have overall a better performance and CatBoost runs faster. 
 
+## 04_NLP_Sentiment_Classification_NB_with_IMDB_Dataset
+### Dataset size: `#50K movie reviews`
+Predict if a movie review is positive or negative using multinomial Naive Bayes. This is a binary sentiment classification natural language processing problem. Two methods of converting text to vectors for model training are compared. 
+### Main Content:  
+- Word Cloud
+- Text data pre-processing
+- Text vectorization 
+- Models with different vectorizers comparison   
+### Model Performance:
+- NB with CountVectorizer: f1 score on positive class: __0.86__; precision: __0.88__; recall: __0.84__; AUC: __0.86__; 
+- NB with CountVectorizer: f1 score on negative class: __0.86__; precision: __0.85__; recall: __0.88__; AUC: __0.86__; 
+- NB with TfidfVectorizer: f1 score on positive class: __0.87__; precision: __0.88__; recall: __0.86__; AUC: __0.87__;
+- NB with TfidfVectorizer: f1 score on negative class: __0.87__; precision: __0.86__; recall: __0.88__; AUC: __0.87__;
+### Summary: 
+Both CountVectorizer and TfidfVectorizer with Naive Bayes model produce decent results. TfidfVectorizer slightly 
+outperforms CountVectorizer in this case. Personally speaking, if computation capacity / constraint is not an issue, I 
+will prefer the TfidfVectorizer since it also takes the context of frequency in document into consideration. 
+
 # Coming Next 
-## 04_NLP_Sentiment_Classification_DNN_with_IMDB_Dataset
 ## 05_Human_Activity_Recognition_SVM_with_HAR_Database  
