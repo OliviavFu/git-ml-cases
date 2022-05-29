@@ -65,5 +65,23 @@ Both CountVectorizer and TfidfVectorizer with Naive Bayes model produce decent r
 outperforms CountVectorizer in this case. Personally speaking, if computation capacity / constraint is not an issue, I 
 will prefer the TfidfVectorizer since it also takes the context of frequency in document into consideration. 
 
-# Coming Next 
 ## 05_Human_Activity_Recognition_SVM_with_HAR_Database  
+### Dataset size: `#10K data points` * 561 human activity derived features  
+This is a multiclass classification problem. We will predict human activity from sensor data using support vector machine. Model performances are compared with different dimension reduction techniques.    
+### Main Content:  
+- Data preparation 
+- SVM hyperparameter tuning with cross validation 
+- SVM model with PCA 
+- SVM model with ICA   
+### Model Performance:
+- SVM with default settings: overall test accuracy score: __0.95__; test f1 score on all 6 label activities: __0.92+__; 
+- SVM with tuned parameters: overall test accuracy score: __0.9647__; test f1 score on all 6 label activities: __0.94+__; 
+- SVM with PCA: overall test accuracy score: __0.90__; test f1 score on 5/6 label activities: __0.89+__ and __0.76__ on label activity __4__; 
+- SVM with ICA: overall test accuracy score: __0.9623__; test f1 score on all 6 label activities: __0.91+__;  
+### Summary: 
+SVM does a good job classifying human activities with the dataset. Interestingly, PCA reduces SVM performance. It turns out that using PCA can lose some spatial information which could impair SVM for classification, so you might want to retain more dimensions so that SVM retains more information. On the other hand, ICA has reduced the problem feature dimensions from 500+ to 200 and maintained a decent model performance. In fact, SVM with ICA even has a better performance predicting activity __3__, __4__, __5__ when pure SVM does a better job with activity __1__, __2__. It could be that the ICA keeps crucial information when reducing dimensionality with component independence considered. So it looks like that for activity __3 - 5__, there is sort of generalization information could be extracted for classification while for activity __1 - 2__, the patterns might be hidden more under the original / raw dataset.   
+
+# Coming Next 
+## 06_Customer_Segmentation_KMeans_with_UCI_Retail_Dataset
+## 07_Diabetes_Prediction_KNN_with_Diabetes_Database
+## 08 Autoencoder Application...
