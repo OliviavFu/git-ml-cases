@@ -70,7 +70,7 @@ will prefer the TfidfVectorizer since it also takes the context of frequency in 
 This is a multiclass classification problem. We will predict human activity from sensor data using support vector machine. Model performances are compared with different dimension reduction techniques.    
 ### Main Content:  
 - Data preparation 
-- SVM hyperparameter tuning with cross validation 
+- SVM hyperparameter tuning with cross validation (grid search)  
 - SVM model with PCA 
 - SVM model with ICA   
 ### Model Performance:
@@ -81,7 +81,32 @@ This is a multiclass classification problem. We will predict human activity from
 ### Summary: 
 SVM does a good job classifying human activities with the dataset. Interestingly, PCA reduces SVM performance. It turns out that using PCA can lose some spatial information which could impair SVM for classification, so you might want to retain more dimensions so that SVM retains more information. On the other hand, ICA has reduced the problem feature dimensions from 500+ to 200 and maintained a decent model performance. In fact, SVM with ICA even has a better performance predicting activity __3__, __4__, __5__ when pure SVM does a better job with activity __1__, __2__. It could be that the ICA keeps crucial information when reducing dimensionality with component independence considered. So it looks like that for activity __3 - 5__, there is sort of generalization information could be extracted for classification while for activity __1 - 2__, the patterns might be hidden more under the original / raw dataset.   
 
+## 06_Customer_Segmentation_KMeans_with_UCI_Retail_Dataset  
+### Dataset size: `#542K data points`
+This is an unsupervised machine learning task. We will build customer segements using k-means clustering and help business owners to better understand their customer portfolio for incentive campaign, smart / limited resource allocation or even for product design and so forth. In addition, we will also compare how different level of information for the task may or may not impact the model results.    
+### Main Content:  
+- Driversets cleaning and derive 
+- Find optimal K by elbow method and average silhouette_score
+- Review clusters with base driverset 
+- Review clusters with a second driverset (base driverset + payment cancel info.)    
+### Model Performance:
+- base driverset #1: __K=6__ and the average silhouette score: __0.513996__; 
+- #1 cluster 1: high mean by is_xb with medium recency and low mean for the rest so this is the __Overseas__ group. 
+- #1 cluster 2: high mean by recency and low mean for the rest 5 features so this is the __Recency__ group. 
+- #1 cluster 3: high mean by Quantity and Amount, not very recent and medium mean for the rest so this is the __High Value__ group. 
+- #1 cluster 4: relatively low mean by everything except medium item_cnt so this seems the __Low Price Item__ group.  
+- #1 cluster 5: high mean by txn_cnt and item_cnt, medium mean for Quantity and Amount and low mean for the rest so this seems the __Stocker__ group. 
+- #1 cluster 6: lowest mean for almost everything except for some recency purchases so this seems the __Low Engagement__ group (or are they "New" customers?). 
+- the second driverset #2: __K=6__ and the average silhouette score: __0.468492__; 
+- #2 cluster 1: highest mean by recency and low mean for the rest so this is the __Recency__ group. 
+- #2 cluster 2: high mean by is_xb with medium recency and low mean for the rest so this is the __Overseas__ group.
+- #2 cluster 3: lowest mean for almost everything except for some recency purchases so this seems the __Low Engagement__ group (or are they "New" customers?).  
+- #2 cluster 4: high mean by Quantity and Amount, not very recent and medium mean for the rest so this is the __High Value__ group. 
+- #2 cluster 5: highest mean by txn_cnt, item_cnt and cancel_txn_cnt, medium mean for Quantity and Amount, no recency and relatively low mean for is_xb so this seems the __Stocker__ group and they are also "Canceller".  
+- #2 cluster 6: relatively low mean by everything except medium item_cnt and cancel_txn_cnt so this seems the __Low Price Item__ group and they also tend to cancel. 
+### Summary: 
+Some interesting findings/thoguhts: 1) When more information passes to clustering, with same K, we have lower silhouette score. However this doesn't necessarily mean the new segmentation is worse. With a different driverset with more features, in fact, the problem space has changed so is the silhouette score comparable cross different driversets or problem spaces? I don't think so. 2) What I can imagine is that with more information, we probably have more chances to slice the space with more details which may lead to closer data points in different clusters and that could lead to lower silhouette score if we assume to compare the scores cross problem spaces. 3) With more information, it actully results in very similar segmentations in this case. And it helps us better understand the clusters/groups, in fact, I feel it segments the customers better with cancelled info. added and we get to know which group tends to cancel so that the store could work on that. 4) Is the more information the better? Personally, I feel not necessarily. If we constantly add more and more features into the driversets, I feel the segmentation interpretation might become challenging and the problem could become more complicated, some dimension reduction techniques might be needed. So this might be one of those situations that we want it to be not too big and not too small.    
+
 # Coming Next 
-## 06_Customer_Segmentation_KMeans_with_UCI_Retail_Dataset
 ## 07_Diabetes_Prediction_KNN_with_Diabetes_Database
 ## 08 Autoencoder Application...
